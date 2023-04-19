@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask To-Do App</title>
+</head>
+<body>
+    <h1>Flask To-Do App</h1>
+    <form method="POST" action="{{ url_for('main.add_task') }}">
+        <input type="text" name="title" placeholder="Task title" required>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <ul>
+        {% for task in tasks %}
+            <li {% if task.completed %}style="text-decoration: line-through;"{% endif %}>
+                {{ task.title }}
+                <a href="{{ url_for('main.update_task', task_id=task.id) }}">
+                    {% if task.completed %}Incomplete{% else %}Complete{% endif %}
+                </a>
+                <a href="{{ url_for('main.delete_task', task_id=task.id) }}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
